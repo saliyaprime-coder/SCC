@@ -158,7 +158,7 @@ const Dashboard = () => {
       <nav className="dashboard-navbar">
         <div className="navbar-container">
           <Link to="/dashboard" className="navbar-brand">
-            <GraduationCap size={30} className="brand-icon" />
+            <GraduationCap size={60} className="brand-icon" />
             <div className="brand-text">
               <span className="brand-name">Smart Campus</span>
               <span className="brand-tagline">Companion</span>
@@ -166,31 +166,35 @@ const Dashboard = () => {
           </Link>
 
           <div className="navbar-links">
+            <Link to="../" className="nav-item">
+              <HomeIcon size={20} />
+              <span>Home Page</span>
+            </Link>
             <Link to="/dashboard" className="nav-item active">
-              <HomeIcon size={16} />
+              <HomeIcon size={20} />
               <span>Dashboard</span>
             </Link>
             <Link to="/timetable" className="nav-item">
-              <Brain size={16} />
+              <Brain size={20} />
               <span>AI Timetable</span>
             </Link>
             <Link to="/notes" className="nav-item">
-              <BookMarked size={16} />
+              <BookMarked size={20} />
               <span>Notes</span>
             </Link>
             <Link to="/kuppi" className="nav-item">
-              <Video size={16} />
+              <Video size={20} />
               <span>Kuppi</span>
             </Link>
             <Link to="/groups" className="nav-item">
-              <Users size={16} />
+              <Users size={20} />
               <span>Groups</span>
             </Link>
           </div>
 
           <div className="navbar-actions">
             <button className="icon-button" title="Search">
-              <Search size={17} />
+              <Search size={20} />
             </button>
             <NotificationBell />
 
@@ -226,11 +230,11 @@ const Dashboard = () => {
                   </div>
                   <div className="dropdown-divider" />
                   <Link to="/profile" className="dropdown-item">
-                    <UserIcon size={16} />
+                    <UserIcon size={20} />
                     <span>My Profile</span>
                   </Link>
                   <Link to="/settings" className="dropdown-item">
-                    <Settings size={16} />
+                    <Settings size={20} />
                     <span>Settings</span>
                   </Link>
                   <div className="dropdown-divider" />
@@ -238,7 +242,7 @@ const Dashboard = () => {
                     onClick={handleLogout}
                     className="dropdown-item danger"
                   >
-                    <LogOut size={16} />
+                    <LogOut size={20} />
                     <span>Sign Out</span>
                   </button>
                 </div>
