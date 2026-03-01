@@ -13,6 +13,8 @@ import authRoutes from "./routes/authRoutes.js";
 import groupRoutes from "./routes/groupRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import fileRoutes from "./routes/fileRoutes.js";
+import timetableRoutes from "./routes/timetableRoutes.js";
+import aiRoutes from "./routes/aiRoutes.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -45,6 +47,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api", messageRoutes);
 app.use("/api", fileRoutes);
+app.use("/api", timetableRoutes);
+app.use("/api/ai", aiRoutes);
 
 // 404 handler
 app.use((req, res) => {

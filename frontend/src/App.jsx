@@ -8,6 +8,8 @@ import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
 import Groups from "./pages/Groups";
 import GroupDetail from "./pages/GroupDetail";
+import Timetable from "./pages/Timetable";
+import AiChat from "./pages/AiChat";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -46,6 +48,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <GroupDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/timetable"
+              element={
+                <ProtectedRoute>
+                  <Timetable />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/ai-chat"
+              element={
+                <ProtectedRoute>
+                  <AiChat />
                 </ProtectedRoute>
               }
             />

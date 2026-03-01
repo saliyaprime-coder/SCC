@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { logout } from "../features/auth/authSlice";
@@ -14,20 +14,43 @@ import {
   LogOut,
   ArrowRight,
   CheckCircle,
-  Clock
+  Clock,
+  MessageCircle
 } from "lucide-react";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { getOngoingEvent } from "../services/timetableService";
 
 const Dashboard = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [ongoingEvent, setOngoingEvent] = useState(null);
+  const [isLoadingOngoing, setIsLoadingOngoing] = useState(false);
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    const fetchOngoing = async () => {
+      try {
+        setIsLoadingOngoing(true);
+        const event = await getOngoingEvent();
+        setOngoingEvent(event);
+      } catch {
+        // Silently ignore if there is no timetable yet
+      } finally {
+        setIsLoadingOngoing(false);
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchOngoing();
+    }
+  }, [isAuthenticated]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -58,9 +81,17 @@ const Dashboard = () => {
       icon: <Brain size={28} />,
       title: "AI Timetable",
       description: "Generate personalized study schedules",
-      status: "coming-soon",
+      status: "available",
       color: "#00f2fe",
-      path: null
+      path: "/timetable"
+    },
+    {
+      icon: <MessageCircle size={28} />,
+      title: "AI Study Assistant",
+      description: "Chat with an AI about your studies",
+      status: "available",
+      color: "#7f5af0",
+      path: "/ai-chat"
     },
     {
       icon: <Users size={28} />,
@@ -142,6 +173,34 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
+
+        {ongoingEvent && (
+          <div className="card fade-in" style={{ marginBottom: '1.5rem' }}>
+            <div className="card-header">
+              <h3 className="card-title">
+                <Clock size={18} style={{ marginRight: 8 }} />
+                Ongoing timetable event
+              </h3>
+              <p className="card-description">
+                Pulled from your latest AI timetable so you always see what&apos;s happening now.
+              </p>
+            </div>
+            <div className="profile-info">
+              <div className="profile-info-item">
+                <strong>{ongoingEvent.title}</strong>
+                <span>
+                  {ongoingEvent.subjectCode && `${ongoingEvent.subjectCode} • `}
+                  {ongoingEvent.type === "study" ? "Study session" : "Class"}
+                </span>
+                <span>
+                  {new Date(ongoingEvent.start).toLocaleTimeString()} –{" "}
+                  {new Date(ongoingEvent.end).toLocaleTimeString()}
+                </span>
+                {ongoingEvent.location && <span>{ongoingEvent.location}</span>}
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="dashboard-grid">
           {dashboardItems.map((item, index) => {
