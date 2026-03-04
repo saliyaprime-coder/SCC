@@ -12,6 +12,13 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Groups from "./pages/Groups";
 import GroupDetail from "./pages/GroupDetail";
+import Notes from "./pages/Notes";
+import NoteDetail from "./pages/NoteDetail";
+import Kuppi from "./pages/Kuppi";
+import Notifications from "./pages/Notifications";
+import CommunityPage from "./pages/CommunityPage";
+import ResourcesPage from "./pages/ResourcesPage";
+import TutorsPage from "./pages/TutorsPage";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -23,40 +30,109 @@ import "./styles/Uiverse.css";
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <div className="app">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/login" element={<AuthPage />} />
-            <Route path="/register" element={<AuthPage />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
+      <ThemeProvider>
+        <Router>
+          <div className="app">
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  background: "var(--toast-bg)",
+                  color: "var(--toast-text)",
+                  border: "1px solid var(--toast-border)",
+                },
+                success: {
+                  iconTheme: {
+                    primary: "#10b981",
+                    secondary: "#052e1b",
+                  },
+                },
+                error: {
+                  iconTheme: {
+                    primary: "#ef4444",
+                    secondary: "#450a0a",
+                  },
+                },
+              }}
             />
-            <Route
-              path="/groups"
-              element={
-                <ProtectedRoute>
-                  <Groups />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/groups/:groupId"
-              element={
-                <ProtectedRoute>
-                  <GroupDetail />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </div>
-      </Router>
+            <ThemeToggle />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/login" element={<AuthPage />} />
+              <Route path="/register" element={<AuthPage />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/groups"
+                element={
+                  <ProtectedRoute>
+                    <Groups />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/groups/:groupId"
+                element={
+                  <ProtectedRoute>
+                    <GroupDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/notes"
+                element={
+                  <ProtectedRoute>
+                    <Notes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/notes/:noteId"
+                element={
+                  <ProtectedRoute>
+                    <NoteDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/kuppi"
+                element={
+                  <ProtectedRoute>
+                    <Kuppi />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/notifications"
+                element={
+                  <ProtectedRoute>
+                    <Notifications />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/resources" element={<ResourcesPage />} />
+              <Route path="/tutors" element={<TutorsPage />} />
+            </Routes>
+          </div>
+        </Router>
+      </ThemeProvider>
     </Provider>
   );
 }
