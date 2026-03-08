@@ -17,6 +17,11 @@ const kuppiPostSchema = new mongoose.Schema({
     required: [true, "Description is required"],
     trim: true
   },
+  subject: {
+    type: String,
+    trim: true,
+    default: ""
+  },
   eventDate: {
     type: Date,
     required: [true, "Event date is required"]
@@ -34,6 +39,20 @@ const kuppiPostSchema = new mongoose.Schema({
     type: String,
     enum: ["pending", "scheduled", "completed", "cancelled"],
     default: "pending"
+  },
+  isArchived: {
+    type: Boolean,
+    default: false,
+    index: true
+  },
+  archivedAt: {
+    type: Date,
+    default: null
+  },
+  archivedReason: {
+    type: String,
+    enum: ["event-expired", "manual"],
+    default: null
   }
 }, {
   timestamps: true
